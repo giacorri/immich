@@ -125,7 +125,7 @@ jobs:
 
       - name: Get Packages
         working-directory: ./mobile
-        run: flutter pub get
+        run: mise exec -- flutter pub get
 
       - name: Generate translation file
         run: mise //mobile:codegen:translation
@@ -144,10 +144,10 @@ jobs:
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
           if [[ $IS_MAIN == 'true' ]]; then
-            flutter build apk --release
-            flutter build apk --release --split-per-abi --target-platform android-arm,android-arm64,android-x64
+            mise exec -- flutter build apk --release
+            mise exec -- flutter build apk --release --split-per-abi --target-platform android-arm,android-arm64,android-x64
           else
-            flutter build apk --release
+            mise exec -- flutter build apk --release
           fi
 
       - name: Publish Android Artifact
@@ -222,7 +222,7 @@ jobs:
 
       - name: Install Flutter dependencies
         working-directory: ./mobile
-        run: flutter pub get
+        run: mise exec -- flutter pub get
 
       - name: Generate translation files
         run: mise //mobile:codegen:translation
@@ -232,7 +232,7 @@ jobs:
 
       - name: Resolve iOS Swift Packages
         working-directory: ./mobile
-        run: flutter build ios --config-only --no-codesign
+        run: mise exec -- flutter build ios --config-only --no-codesign
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@afeafc3d1ab54a631816aba4c914a0081c12ff2f # v1.310.0

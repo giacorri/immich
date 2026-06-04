@@ -562,7 +562,7 @@ jobs:
           github_token: ${{ steps.token.outputs.token }}
 
       - name: Install dependencies
-        run: flutter pub get
+        run: mise exec -- flutter pub get
         working-directory: ./mobile
 
       - name: Generate translation files

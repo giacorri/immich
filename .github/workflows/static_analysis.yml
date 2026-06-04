@@ -66,10 +66,10 @@ jobs:
           github_token: ${{ steps.token.outputs.token }}
 
       - name: Install dependencies
-        run: flutter pub get
+        run: mise exec -- flutter pub get
 
       - name: Install dependencies for UI package
-        run: flutter pub get
+        run: mise exec -- flutter pub get
         working-directory: ./mobile/packages/ui
 
       - name: Generate translation files

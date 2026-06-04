@@ -48,7 +48,7 @@ jobs:
 
       - name: Get packages
         working-directory: ./mobile
-        run: flutter pub get
+        run: mise exec -- flutter pub get
 
       - name: Fetch base spec from main
         run: |
@@ -61,4 +61,4 @@ jobs:
         env:
           OPENAPI_BASE_SPEC: /tmp/base-spec.json
           OPENAPI_REVISION_SPEC: ../open-api/immich-openapi-specs.json
-        run: flutter test test/openapi_patches_coverage.dart
+        run: mise exec -- flutter test test/openapi_patches_coverage.dart
