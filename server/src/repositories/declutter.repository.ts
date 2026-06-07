@@ -78,12 +78,12 @@ export class DeclutterRepository {
   streamAssetsForDeclutter(userId: string) {
     return this.db
       .selectFrom('asset')
-      .select(['asset.id', 'asset.type', 'asset.fileCreatedAt', 'asset.width', 'asset.height', 'smart_search.embedding'])
       .$call(withDefaultVisibility)
       .innerJoin('smart_search', 'asset.id', 'smart_search.assetId')
       .where('asset.ownerId', '=', asUuid(userId))
       .where('asset.deletedAt', 'is', null)
       .where('asset.stackId', 'is', null)
+      .select(['asset.id', 'asset.type', 'asset.fileCreatedAt', 'asset.width', 'asset.height', 'smart_search.embedding'])
       .stream();
   }
 

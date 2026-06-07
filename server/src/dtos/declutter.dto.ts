@@ -1,74 +1,49 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsString } from 'class-validator';
+import { createZodDto } from 'nestjs-zod';
 import { DeclutterGroupStatus } from 'src/enum';
+import z from 'zod';
 
-export class DeclutterGroupAssetDto {
-  @ApiProperty()
-  id!: string;
+const DeclutterGroupStatusSchema = z.nativeEnum(DeclutterGroupStatus);
 
-  @ApiProperty()
-  thumbUrl!: string;
+const DeclutterGroupAssetSchema = z.object({
+  id: z.string(),
+  thumbUrl: z.string(),
+  originalFileName: z.string().nullable(),
+  width: z.number().nullable(),
+  height: z.number().nullable(),
+  fileCreatedAt: z.string().nullable(),
+});
 
-  @ApiProperty({ nullable: true, type: String })
-  originalFileName!: string | null;
+const DeclutterGroupSchema = z.object({
+  id: z.string(),
+  status: DeclutterGroupStatusSchema,
+  createdAt: z.string(),
+  reviewedAt: z.string().nullable(),
+  recommendedAssetId: z.string().nullable(),
+  assets: z.array(DeclutterGroupAssetSchema),
+});
 
-  @ApiProperty({ nullable: true, type: Number })
-  width!: number | null;
+const DeclutterStatusSchema = z.object({
+  pendingCount: z.number(),
+  isRunning: z.boolean(),
+  embeddingCoverage: z.number(),
+});
 
-  @ApiProperty({ nullable: true, type: Number })
-  height!: number | null;
+const DeclutterUpdateGroupSchema = z.object({
+  status: DeclutterGroupStatusSchema,
+});
 
-  @ApiProperty({ nullable: true, type: String })
-  fileCreatedAt!: string | null;
-}
+const DeclutterDecisionSchema = z.object({
+  assetId: z.string(),
+  action: z.enum(['keep', 'trash']),
+});
 
-export class DeclutterGroupDto {
-  @ApiProperty()
-  id!: string;
+const DeclutterConfirmSchema = z.object({
+  decisions: z.array(DeclutterDecisionSchema),
+});
 
-  @ApiProperty({ enum: DeclutterGroupStatus, enumName: 'DeclutterGroupStatus' })
-  status!: DeclutterGroupStatus;
-
-  @ApiProperty()
-  createdAt!: string;
-
-  @ApiProperty({ nullable: true, type: String })
-  reviewedAt!: string | null;
-
-  @ApiProperty({ nullable: true, type: String })
-  recommendedAssetId!: string | null;
-
-  @ApiProperty({ type: [DeclutterGroupAssetDto] })
-  assets!: DeclutterGroupAssetDto[];
-}
-
-export class DeclutterStatusDto {
-  @ApiProperty()
-  pendingCount!: number;
-
-  @ApiProperty()
-  isRunning!: boolean;
-
-  @ApiProperty()
-  embeddingCoverage!: number;
-}
-
-export class DeclutterUpdateGroupDto {
-  @ApiProperty({ enum: DeclutterGroupStatus, enumName: 'DeclutterGroupStatus' })
-  @IsEnum(DeclutterGroupStatus)
-  status!: DeclutterGroupStatus;
-}
-
-export class DeclutterDecisionDto {
-  @ApiProperty()
-  @IsString()
-  assetId!: string;
-
-  @ApiProperty({ enum: ['keep', 'trash'] })
-  action!: 'keep' | 'trash';
-}
-
-export class DeclutterConfirmDto {
-  @ApiProperty({ type: [DeclutterDecisionDto] })
-  decisions!: DeclutterDecisionDto[];
-}
+export class DeclutterGroupAssetDto extends createZodDto(DeclutterGroupAssetSchema) {}
+export class DeclutterGroupDto extends createZodDto(DeclutterGroupSchema) {}
+export class DeclutterStatusDto extends createZodDto(DeclutterStatusSchema) {}
+export class DeclutterUpdateGroupDto extends createZodDto(DeclutterUpdateGroupSchema) {}
+export class DeclutterDecisionDto extends createZodDto(DeclutterDecisionSchema) {}
+export class DeclutterConfirmDto extends createZodDto(DeclutterConfirmSchema) {}
