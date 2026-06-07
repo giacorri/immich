@@ -103,6 +103,7 @@ const SystemConfigJobSchema = z
     ocr: JobSettingsSchema,
     workflow: JobSettingsSchema,
     editor: JobSettingsSchema,
+    similarDeclutter: JobSettingsSchema,
   })
   .meta({ id: 'SystemConfigJobDto' });
 
