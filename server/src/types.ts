@@ -219,6 +219,10 @@ export type ConcurrentQueueName = Exclude<
   | QueueName.BackupDatabase
 >;
 
+export interface IDeclutterJob extends IBaseJob {
+  userId: string;
+}
+
 export type Jobs = { [K in JobItem['name']]: (JobItem & { name: K })['data'] };
 export type JobOf<T extends JobName> = Jobs[T];
 
@@ -423,7 +427,11 @@ export type JobItem =
   | { name: JobName.WorkflowAssetTrigger; data: { workflowId: string; assetId: string } }
 
   // Editor
-  | { name: JobName.AssetEditThumbnailGeneration; data: IEntityJob };
+  | { name: JobName.AssetEditThumbnailGeneration; data: IEntityJob }
+
+  // Similar Declutter
+  | { name: JobName.SimilarDeclutterQueueAll; data: IBaseJob }
+  | { name: JobName.SimilarDeclutter; data: IDeclutterJob };
 
 export type VectorExtension = (typeof VECTOR_EXTENSIONS)[number];
 

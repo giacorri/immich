@@ -4,6 +4,7 @@ import {
   asset_face_source_type,
   asset_visibility_enum,
   assets_status_enum,
+  declutter_group_status_enum,
 } from 'src/schema/enums';
 import {
   album_user_after_insert,
@@ -25,6 +26,8 @@ import {
   user_metadata_audit,
 } from 'src/schema/functions';
 import { ActivityTable } from 'src/schema/tables/activity.table';
+import { DeclutterGroupAssetTable } from 'src/schema/tables/declutter-group-asset.table';
+import { DeclutterGroupTable } from 'src/schema/tables/declutter-group.table';
 import { AlbumAssetAuditTable } from 'src/schema/tables/album-asset-audit.table';
 import { AlbumAssetTable } from 'src/schema/tables/album-asset.table';
 import { AlbumAuditTable } from 'src/schema/tables/album-audit.table';
@@ -92,6 +95,8 @@ export class ImmichDatabase {
   tables = [
     ActivityTable,
     AlbumAssetTable,
+    DeclutterGroupTable,
+    DeclutterGroupAssetTable,
     AlbumAssetAuditTable,
     AlbumAuditTable,
     AlbumUserAuditTable,
@@ -170,7 +175,7 @@ export class ImmichDatabase {
     asset_face_audit,
   ];
 
-  enum = [album_user_role_enum, assets_status_enum, asset_face_source_type, asset_visibility_enum];
+  enum = [album_user_role_enum, assets_status_enum, asset_face_source_type, asset_visibility_enum, declutter_group_status_enum];
 }
 
 export interface Migrations {
@@ -268,4 +273,7 @@ export interface DB {
 
   workflow: WorkflowTable;
   workflow_step: WorkflowStepTable;
+
+  declutter_group: DeclutterGroupTable;
+  declutter_group_asset: DeclutterGroupAssetTable;
 }

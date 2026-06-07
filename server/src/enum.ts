@@ -158,6 +158,9 @@ export enum Permission {
   BackupUpload = 'backup.upload',
   BackupDelete = 'backup.delete',
 
+  DeclutterRead = 'declutter.read',
+  DeclutterUpdate = 'declutter.update',
+
   DuplicateRead = 'duplicate.read',
   DuplicateDelete = 'duplicate.delete',
 
@@ -388,6 +391,12 @@ export enum AssetStatus {
   Active = 'active',
   Trashed = 'trashed',
   Deleted = 'deleted',
+}
+
+export enum DeclutterGroupStatus {
+  Pending = 'pending',
+  Reviewed = 'reviewed',
+  Skipped = 'skipped',
 }
 
 export enum SourceType {
@@ -772,6 +781,7 @@ export enum QueueName {
   Ocr = 'ocr',
   Workflow = 'workflow',
   Editor = 'editor',
+  SimilarDeclutter = 'similarDeclutter',
 }
 
 export const QueueNameSchema = z.enum(QueueName).describe('Queue name').meta({ id: 'QueueName' });
@@ -866,6 +876,10 @@ export enum JobName {
 
   // Workflow
   WorkflowAssetTrigger = 'WorkflowAssetTrigger',
+
+  // Similar Declutter
+  SimilarDeclutterQueueAll = 'SimilarDeclutterQueueAll',
+  SimilarDeclutter = 'SimilarDeclutter',
 }
 
 export const JobNameSchema = z.enum(JobName).describe('Job name').meta({ id: 'JobName' });
@@ -1125,6 +1139,7 @@ export enum ApiTag {
   Assets = 'Assets',
   DatabaseBackups = 'Database Backups (admin)',
   Deprecated = 'Deprecated',
+  Declutter = 'Declutter',
   Download = 'Download',
   Duplicates = 'Duplicates',
   Faces = 'Faces',

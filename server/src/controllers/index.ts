@@ -8,6 +8,7 @@ import { AuthAdminController } from 'src/controllers/auth-admin.controller';
 import { AuthController } from 'src/controllers/auth.controller';
 import { DatabaseBackupController } from 'src/controllers/database-backup.controller';
 import { DownloadController } from 'src/controllers/download.controller';
+import { DeclutterController } from 'src/controllers/declutter.controller';
 import { DuplicateController } from 'src/controllers/duplicate.controller';
 import { FaceController } from 'src/controllers/face.controller';
 import { JobController } from 'src/controllers/job.controller';
@@ -50,6 +51,7 @@ export const controllers = [
   AuthAdminController,
   DatabaseBackupController,
   DownloadController,
+  DeclutterController,
   DuplicateController,
   FaceController,
   JobController,
